@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Netlify Functions weather</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+</head>
+
+<body>
+    <div class="container">
+        <h1>Example: Get the weather with Netlify Functions</h1>
+        <label for="zip">US ZIP code: </label>
+        <input id="zip" name="zip" type="number">
+        <br>
+        <input type="button" id="fetch-btn" value="Get current forecast"></button>
+        <p>
+        <p id="response-output">No weather yet!</p>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+              const fetchBtn = document.getElementById('fetch-btn')
+              const responseText = document.getElementById('response-output')
+      
+              fetchBtn.addEventListener('click', async () => {
+                const zip = document.getElementById('zip').value
+                const res = await fetch('/.netlify/functions/weather?zip='+zip)
+                    .then((res) => res.text())
+                    .then((text) => {
+                        responseText.innerText = text
+                    })
+              })
+            })
+        </script>
+    </div>
+
+</body>
+
+</html>
